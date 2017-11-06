@@ -40,7 +40,7 @@ public class TicketMasterAPI implements ExternalAPI{
 
 //		String query = String.format("apikey=%s&geoPoint=%s&keyword=%s", API_KEY, geoHash, term);
 		// Mexico bug potential fix
-		String query = String.format("apikey=%s&geoPoint=%s&radius=50&keyword=%s", API_KEY, geoHash, term);
+		String query = String.format("apikey=%s&geoPoint=%s&radius=80&keyword=%s&size=40", API_KEY, geoHash, term);
 		try {
 			// Create a HTTP connection between your Java application and TicketMaster based
 			// on url

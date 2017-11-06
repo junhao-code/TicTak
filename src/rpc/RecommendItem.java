@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,32 +37,13 @@ public class RecommendItem extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-//		response.getWriter().append("Served at: ").append(request.getContextPath());
-//		response.setContentType("application/json");
-//		response.addHeader("Access-Control-Allow-Origin", "*");
-//		PrintWriter out = response.getWriter();
-//
-//		JSONArray array = new JSONArray();
-//		try {
-//			array.put(new JSONObject().put("name", "abcd").put("address", "san francisco").put("time", "01/01/2017"));
-//			array.put(new JSONObject().put("name", "abcd").put("1234", "san jose").put("time", "01/02/2017"));
-//		} catch (JSONException e) {
-//			e.printStackTrace();
-//		}
-//		out.print(array);
-//		out.flush();
-//		out.close();
 		
-		// improved version
-//		JSONArray array = new JSONArray();
-//		try {
-//			array.put(new JSONObject().put("username", "abcd"));
-//			array.put(new JSONObject().put("username", "1234"));
-//		} catch (JSONException e) {
-//			e.printStackTrace();
-//		}
-//		RpcHelper.writeJsonArray(response, array);
+		// allow access only if session exists
+		HttpSession session = request.getSession();
+		if (session.getAttribute("user") == null) {
+			response.setStatus(403);
+			return;
+		}
 		
 		String userId = request.getParameter("user_id");
 		double lat = Double.parseDouble(request.getParameter("lat"));
@@ -85,6 +67,13 @@ public class RecommendItem extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+		// allow access only if session exists
+//		HttpSession session = request.getSession();
+//		if (session.getAttribute("user") == null) {
+//			response.setStatus(403);
+//			return;
+//		}
 		doGet(request, response);
 	}
 

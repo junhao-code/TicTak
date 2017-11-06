@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,6 +44,13 @@ public class ItemHistory extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		// allow access only if session exists
+		HttpSession session = request.getSession();
+		if (session.getAttribute("user") == null) {
+			response.setStatus(403);
+			return;
+		}
 		String userId = request.getParameter("user_id");
 		JSONArray array = new JSONArray();
 
@@ -58,6 +66,7 @@ public class ItemHistory extends HttpServlet {
 			array.put(obj);
 		}
 		RpcHelper.writeJsonArray(response, array);
+		conn.close();
 	}
 
 	/**
@@ -66,7 +75,6 @@ public class ItemHistory extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		try {
 			// duplicate codes with doDelete method
 //			// Get request body and convert to JSONObject
@@ -78,9 +86,16 @@ public class ItemHistory extends HttpServlet {
 //			}
 //			reader.close();
 //			JSONObject input = new JSONObject(sb.toString());
-
+			
 			// Get user_id and item_id from input
 			JSONObject input = RpcHelper.readJsonObject(request);
+			
+			// allow access only if session exists
+			HttpSession session = request.getSession();
+			if (session.getAttribute("user") == null) {
+				response.setStatus(403);
+				return;
+			}
 			String userId = input.getString("user_id");
 			JSONArray array = (JSONArray) input.get("favorite");
 
@@ -114,6 +129,13 @@ public class ItemHistory extends HttpServlet {
 //			reader.close();
 //
 //			JSONObject input = new JSONObject(sb.toString());
+			
+			// allow access only if session exists
+			HttpSession session = request.getSession();
+			if (session.getAttribute("user") == null) {
+				response.setStatus(403);
+				return;
+			}
 			
 			JSONObject input = RpcHelper.readJsonObject(request);
 			String userId = input.getString("user_id");
