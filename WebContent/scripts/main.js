@@ -519,7 +519,7 @@
 		});
 
 		address.innerHTML = item.address + "<br/>" + item.city + ", "
-				+ item.state + " " + item.zipcode + "<br/>" + item.country;
+				+ item.state + " " + "<br/>" + item.country;
 		// address.innerHTML = item.address.replace(/,/g,
 		// '<br/>').replace(/\"/g,'');
 		li.appendChild(address);
