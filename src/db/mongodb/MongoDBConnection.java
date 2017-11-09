@@ -147,22 +147,30 @@ public class MongoDBConnection implements DBConnection {
 	@Override
 	public String getFullname(String userId) {
 		// TODO Auto-generated method stub
-//		String name = "";
-//		FindIterable<Document> iterable = db.getCollection("users").find(eq("user_id", userId));
-//		if (iterable.first().containsKey("")) {
-//			@SuppressWarnings("unchecked")
-//			List<String> list = (List<String>) iterable.first().get("categories");
-//			categories.addAll(list);
-//		}
-//		return name;
-		return null;
-		
+		String name = "";
+		StringBuilder sb = new StringBuilder();
+		FindIterable<Document> iterable = db.getCollection("users").find(eq("user_id", userId));
+		if (iterable.first().containsKey("first_name") && iterable.first().containsKey("last_name")) {
+			@SuppressWarnings("unchecked")
+			String first = ((String) iterable.first().get("first_name"));
+			sb.append(first);
+			sb.append(" ");
+			String last = (String) iterable.first().get("last_name");
+			sb.append(last);
+		}
+		name = sb.toString();
+		return name;
+//		return null;
 	}
 
 	@Override
 	public boolean verifyLogin(String userId, String password) {
-		// TODO Auto-generated method stub
-		
+		FindIterable<Document> iterable = db.getCollection("users").find(eq("user_id", userId));
+		if (iterable.first() != null && iterable.first().containsKey(password)) {
+			if (iterable.first().get("password").equals(password)) {
+				return true;
+			}
+		}
 		return false;
 	}
 
