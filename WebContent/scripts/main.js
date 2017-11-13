@@ -491,7 +491,15 @@
 		});
 		category.innerHTML = 'Category: ' + item.categories.join(', ');
 		section.appendChild(category);
-
+		
+		// time
+		var time = $('p', {
+			className : 'item-time'
+		});
+		time.innerHTML = 'Date: ' + item.localDate;
+		section.appendChild(time);
+		
+		//stars
 		var stars = $('div', {
 			className : 'stars'
 		});

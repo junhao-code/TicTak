@@ -6,7 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Item {
+public class YelpItem {
 	private String itemId;
 	private String name;
 	private double rating;
@@ -23,32 +23,8 @@ public class Item {
 	private String url;
 	private String snippet;
 	private String snippetUrl;
-	private String localDate;
 	
-	
-	/**
-	 * This is a builder pattern in Java.
-	 */
-	private Item(ItemBuilder builder) {
-		this.itemId = builder.itemId;
-		this.name = builder.name;
-		this.rating = builder.rating;
-		this.address = builder.address;
-		this.city = builder.city;
-		this.country = builder.country;
-		this.state = builder.state;
-		this.zipcode = builder.zipcode;
-		this.latitude = builder.latitude;
-		this.longitude = builder.longitude;
-		this.description = builder.description;
-		this.categories = builder.categories;
-		this.imageUrl = builder.imageUrl;
-		this.url = builder.url;
-		this.snippet = builder.snippet;
-		this.snippetUrl = builder.snippetUrl;
-		this.localDate = builder.localDate;
-	}
-
+	// getters
 	public String getItemId() {
 		return itemId;
 	}
@@ -97,6 +73,7 @@ public class Item {
 	public String getSnippetUrl() {
 		return snippetUrl;
 	}
+	
 	public JSONObject toJSONObject() {
 		JSONObject obj = new JSONObject();
 		try {
@@ -116,13 +93,35 @@ public class Item {
 			obj.put("url", url);
 			obj.put("snippet_url", snippetUrl);
 			obj.put("snippet", snippet);
-			obj.put("localDate", localDate);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
 		return obj;
 	}
 	
+	
+	/**
+	 * This is a builder pattern in Java.
+	 */
+	private YelpItem(ItemBuilder builder) {
+		this.itemId = builder.itemId;
+		this.name = builder.name;
+		this.rating = builder.rating;
+		this.address = builder.address;
+		this.city = builder.city;
+		this.country = builder.country;
+		this.state = builder.state;
+		this.zipcode = builder.zipcode;
+		this.latitude = builder.latitude;
+		this.longitude = builder.longitude;
+		this.description = builder.description;
+		this.categories = builder.categories;
+		this.imageUrl = builder.imageUrl;
+		this.url = builder.url;
+		this.snippet = builder.snippet;
+		this.snippetUrl = builder.snippetUrl;
+	}
+
 	public static class ItemBuilder {
 		private String itemId;
 		private String name;
@@ -140,32 +139,6 @@ public class Item {
 		private String url;
 		private String snippet;
 		private String snippetUrl;
-		private String localDate;
-
-		@Override
-		public int hashCode() {
-			final int prime = 31;
-			int result = 1;
-			result = prime * result + ((itemId == null) ? 0 : itemId.hashCode());
-			return result;
-		}
-
-		@Override
-		public boolean equals(Object obj) {
-			if (this == obj)
-				return true;
-			if (obj == null)
-				return false;
-			if (getClass() != obj.getClass())
-				return false;
-			ItemBuilder other = (ItemBuilder) obj;
-			if (itemId == null) {
-				if (other.itemId != null)
-					return false;
-			} else if (!itemId.equals(other.itemId))
-				return false;
-			return true;
-		}
 
 		public ItemBuilder setItemId(String itemId) {
 			this.itemId = itemId;
@@ -246,17 +219,10 @@ public class Item {
 			this.snippetUrl = snippetUrl;
 			return this;
 		}
-		public ItemBuilder setLocalDate(String localDate) {
-			this.localDate = localDate;
-			return this;
-		}
 
-		public Item build() {
-			return new Item(this);
+		public YelpItem build() {
+			return new YelpItem(this);
 		}
 	}
-
-	
-
 
 }

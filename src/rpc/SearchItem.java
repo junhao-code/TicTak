@@ -23,6 +23,7 @@ import entity.Item;
 import external.ExternalAPI;
 import external.ExternalAPIFactory;
 import external.TicketMasterAPI;
+import external.YelpAPI;
 
 /**
  * Servlet implementation class SearchItem
@@ -45,7 +46,7 @@ public class SearchItem extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+		// TicketMasterAPI
 		// allow access only if session exists
 		HttpSession session = request.getSession();
 		if (session.getAttribute("user") == null) {
@@ -75,6 +76,26 @@ public class SearchItem extends HttpServlet {
 		}
 		JSONArray array = new JSONArray(list);
 		RpcHelper.writeJsonArray(response, array);
+		
+		// Yelp API 
+//		double lat = Double.parseDouble(request.getParameter("lat"));
+//		double lon = Double.parseDouble(request.getParameter("lon"));
+//		// Term can be empty or null.
+//		String term = request.getParameter("term");
+//		YelpAPI api = new YelpAPI();
+//		List<Item> items = api.search(lat, lon, term);
+//		List<JSONObject> list = new ArrayList<>();
+//		try {
+//			for (Item item : items) {
+//				// Add a thin version of item object
+//				JSONObject obj = item.toJSONObject();
+//				list.add(obj);
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		JSONArray array = new JSONArray(list);
+//		RpcHelper.writeJsonArray(response, array);
 	}
 
 	/**

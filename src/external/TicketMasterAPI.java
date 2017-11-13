@@ -119,6 +119,7 @@ public class TicketMasterAPI implements ExternalAPI{
 			builder.setCategories(getCategories(event));
 			builder.setImageUrl(getImageUrl(event));
 			builder.setUrl(getStringFieldOrNull(event, "url"));
+			builder.setLocalDate(getDates(event));
 			JSONObject venue = getVenue(event);
 			if (venue != null) {
 				if (!venue.isNull("address")) {
@@ -204,7 +205,18 @@ public class TicketMasterAPI implements ExternalAPI{
 		return categories;
 
 	}
+	// Get dates
+	private String getDates(JSONObject event) throws JSONException {
+//		String dates = new String();
+		StringBuilder sb = new StringBuilder();
+		if (!event.isNull("dates")) {
+			JSONObject dates = (JSONObject) event.get("dates");
+			JSONObject start = dates.getJSONObject("start");
+			sb.append(start.get("localDate"));				
+		}
+		return sb.toString();
 
+	}
 	private String getDescription(JSONObject event) throws JSONException {
 		if (!event.isNull("description")) {
 			return event.getString("description");
