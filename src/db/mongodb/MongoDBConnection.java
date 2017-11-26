@@ -166,7 +166,7 @@ public class MongoDBConnection implements DBConnection {
 	@Override
 	public boolean verifyLogin(String userId, String password) {
 		FindIterable<Document> iterable = db.getCollection("users").find(eq("user_id", userId));
-		if (iterable.first() != null && iterable.first().containsKey(password)) {
+		if (iterable.first() != null && iterable.first().containsKey("password")) {
 			if (iterable.first().get("password").equals(password)) {
 				return true;
 			}

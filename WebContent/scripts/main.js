@@ -492,12 +492,13 @@
 		category.innerHTML = 'Category: ' + item.categories.join(', ');
 		section.appendChild(category);
 		
+		// the date is unique to ticketmasterAPI
 		// time
-		var time = $('p', {
-			className : 'item-time'
-		});
-		time.innerHTML = 'Date: ' + item.localDate;
-		section.appendChild(time);
+//		var time = $('p', {
+//			className : 'item-time'
+//		});
+//		time.innerHTML = 'Date: ' + item.localDate;
+//		section.appendChild(time);
 		
 		//stars
 		var stars = $('div', {
@@ -525,11 +526,17 @@
 		var address = $('p', {
 			className : 'item-address'
 		});
-
-		address.innerHTML = item.address + "<br/>" + item.city + ", "
-				+ item.state + " " + "<br/>" + item.country;
+		// unique to ticketmasterAPI 
+//		address.innerHTML = item.address + "<br/>" + item.city + ", "
+//				+ item.state + " " + "<br/>" + item.country;
+		// another way of writing it
 		// address.innerHTML = item.address.replace(/,/g,
 		// '<br/>').replace(/\"/g,'');
+		
+		// unique to yelpAPI
+		address.innerHTML = item.address + "<br/>" + item.city + ", "
+		+ item.state + " " + "<br/>";
+		
 		li.appendChild(address);
 
 		// favorite link

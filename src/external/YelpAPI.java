@@ -19,7 +19,7 @@ import entity.Item.ItemBuilder;
 //import entity.YelpItem;
 
 
-public class YelpAPI {
+public class YelpAPI implements ExternalAPI{
 	
   private static final String API_HOST = "https://api.yelp.com";
   private static final String DEFAULT_TERM = "dinner";
